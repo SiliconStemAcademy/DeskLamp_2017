@@ -31,7 +31,7 @@
 #include <Adafruit_LIS3DH.h>
 
 //Uncomment below if you want debug information printed to the console
-//#define DEBUG 
+#define DEBUG 
 
 //macros
 #define NUMPIXELS  60
@@ -108,6 +108,7 @@ void setup() {
   digitalWrite(13, HIGH);
 
   strip.begin();
+  Serial.begin(115200);
 
 #ifdef DEBUG
   Serial.println("System Started");
@@ -125,7 +126,6 @@ void setup() {
   Serial.println("MMA Found!");
 #endif
 
-
   xyz.setRange(LIS3DH_RANGE_2_G);
 
 #ifdef DEBUG
@@ -141,8 +141,6 @@ void setup() {
 
   // WiFi and lamp initial setup
   delay(1000);
-  strip.begin();
-  Serial.begin(115200);
 
   WiFi.begin(ssid, password);
   Serial.println("Establishing WiFi connection");
@@ -810,9 +808,9 @@ uint8_t get_state(void)
   }
 
 #ifdef DEBUG
-  Serial.print("X:  "); Serial.print(x_avg);
-  Serial.print("\tY:  "); Serial.print(y_avg);
-  Serial.print("\tZ:  "); Serial.print(z_avg);
+  Serial.print("X:  "); Serial.print(xyz.x);
+  Serial.print("\tY:  "); Serial.print(xyz.y);
+  Serial.print("\tZ:  "); Serial.print(xyz.z);
   Serial.print("\tState:  "); Serial.print(state);
   Serial.println();
 #endif
